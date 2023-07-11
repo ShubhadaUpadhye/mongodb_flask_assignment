@@ -16,7 +16,7 @@ mongo = PyMongo(app)
 ##creating collection in mongodb
 my_coll=mongo.db.user_docs
 
-### fetching arguements for crud operations
+###  arguements for crud operations
 inserting_user = reqparse.RequestParser()
 inserting_user.add_argument('unique_id', type=str, required=True)
 inserting_user.add_argument('name', type=str, required=True)
@@ -31,6 +31,7 @@ update_user.add_argument('password', type=str)
 
 
 class user(Resource):
+    ##adding_user to mongodb
     def post(self):
         try:
             args = inserting_user.parse_args()
@@ -45,7 +46,8 @@ class user(Resource):
             return jsonify(str("enter all the values"))
         else:
             return jsonify(str("user_records inserted"))
-
+            
+    ##updating user
     def put(self):
         try:
             args=update_user.parse_args()
@@ -60,6 +62,7 @@ class user(Resource):
         else:
             return jsonify(str(my_coll.find_one(filter)))
 
+    ##deleting user from  mongodb
     def delete(self,unique_id):
         try:
             records = my_coll.find_one({'unique_id': unique_id})
@@ -74,6 +77,7 @@ class user(Resource):
 
 
 class get_user(Resource):
+    ## fetching all users from mongodb
     def post(self):
         documnets = []
         try:
@@ -87,6 +91,7 @@ class get_user(Resource):
             else:
                 return jsonify(str("no records"))
 
+    ## fetching one user from mongodb
     def get(self,unique_id):
         try:
             filter = {'unique_id': unique_id}
