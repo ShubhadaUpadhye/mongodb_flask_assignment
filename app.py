@@ -11,7 +11,7 @@ api=Api(api_crud)
 
 
 ##connecting to Mongodb Atlas
-app.config['MONGO_URI']="mongodb+srv://shubhadadu:<password>@shuhadaupadhye.l98sn.mongodb.net/user_details?retryWrites=true&w=majority"
+app.config['MONGO_URI']="mongodb_link"
 mongo = PyMongo(app)
 ##creating collection in mongodb
 my_coll=mongo.db.user_docs
